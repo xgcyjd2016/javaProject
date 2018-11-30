@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgcyjd.dao.SignRecordMapper">
+    <insert id="insertSignRecord" parameterType="com.xgcyjd.po.SignReord">
+        insert into sign_record values
+        (#{id},#{stu_id}, #{dataTime})
+    </insert>
+    <select id="getSignRecordByStuId" parameterType="java.lang.Integer" resultType="com.xgcyjd.po.SignReord">
+        select * from sign_record where user_id = #{user_id}
+    </select>
+</mapper>
