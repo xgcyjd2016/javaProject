@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
@@ -19,7 +20,9 @@ public class ManagerController {
 
     @RequestMapping(value = "/uanager/login")
     @ResponseBody
-    public HashMap<String,Object> login(@RequestBody Manager manager, HttpSession session ) throws Exception {
+    public HashMap<String,Object> login(@RequestBody Manager manager, HttpServletRequest request) throws Exception {
+
+        HttpSession session = request.getSession();
 
        Manager record = managerService.login(manager);
 
@@ -31,13 +34,13 @@ public class ManagerController {
 
             return hashMap; //用户不存在
         }
-        else if (!record.getPassword().equals(manager.getPassword()))
-        {
+        else if (!record.getPassword().equals(manager.getPassword())) {
+
             hashMap.put("state",0);
 
             return hashMap; //密码不正确
-        }else
-        {
+        }else {
+
             session.setAttribute("manager",record);
 
             hashMap.put("state",1);
@@ -48,7 +51,6 @@ public class ManagerController {
             hashMap.put("mobile_phone",record.getMobile_phone());
 
             session.getAttribute("manager");
-            System.out.print("-------------------");
             return hashMap; //登陆成功
         }
 

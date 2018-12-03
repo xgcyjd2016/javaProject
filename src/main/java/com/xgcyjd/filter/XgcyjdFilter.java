@@ -27,7 +27,7 @@ public class XgcyjdFilter implements Filter {
         ((HttpServletResponse) res).setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
 //         ((HttpServletResponse) res).setHeader("Access-Control-Allow-Credentials", "true");
             // 如果要把Cookie发到服务器，需要指定Access-Control-Allow-Credentials字段为true;
-//            ((HttpServletResponse) res).setHeader("XDomainRequestAllowed","1");
+//       ((HttpServletResponse) res).setHeader("XDomainRequestAllowed","1");
             chain.doFilter(req, res);
            return;
 

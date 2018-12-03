@@ -159,12 +159,11 @@
     </dependency>
 
     <!-- GoEasy相关jar包,用于消息推送-->
-    <dependency>
-      <groupId>io.goeasy</groupId>
-      <artifactId>goeasy-sdk</artifactId>
-      <version>0.3.8</version>
-    </dependency>
-
+    <!--<dependency>-->
+      <!--<groupId>io.goeasy</groupId>-->
+      <!--<artifactId>goeasy-sdk</artifactId>-->
+      <!--<version>0.3.8</version>-->
+    <!--</dependency>-->
 
     <!-- /POI support -->
     <!--Freemarker support -->

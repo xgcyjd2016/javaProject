@@ -5,6 +5,8 @@ import com.xgcyjd.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
@@ -27,7 +29,9 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public HashMap<String, Object> login(@RequestBody User user, HttpSession session) throws Exception {
+    public HashMap<String, Object> login(@RequestBody User user, HttpServletRequest request) throws Exception {
+
+        HttpSession session = request.getSession();
 
         HashMap<String, Object> hashMap = new HashMap<>();
 
