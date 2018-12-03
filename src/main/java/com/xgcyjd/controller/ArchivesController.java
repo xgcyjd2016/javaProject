@@ -3,6 +3,9 @@ package com.xgcyjd.controller;
 import com.xgcyjd.po.Archives;
 import com.xgcyjd.po.ArchivesDetail;
 import com.xgcyjd.service.ArchivesService;
+import io.goeasy.GoEasy;
+import io.goeasy.publish.GoEasyError;
+import io.goeasy.publish.PublishListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +44,10 @@ public class ArchivesController
     public HashMap<String, Object> checkArchivesDetail(@RequestBody ArchivesDetail archivesDetail) throws Exception
     {
         archivesService.checkArchivesDetail(archivesDetail);
+        if(archivesDetail.getState() == 2){
+            GoEasy goEasy = new GoEasy("http://rest-hangzhou.goeasy.io","BS-e4cc2aa833da412abd2290bd744bd35b");
+//            goEasy.publish("");
+        }
 
         HashMap<String,Object> hashMap = new HashMap<>();
 
@@ -90,6 +97,29 @@ public class ArchivesController
 
         hashMap.put("archivesDetail" ,archivesDetail);
 
+        GoEasy goEasy = new GoEasy("http://rest-hangzhou.goeasy.io","BS-e4cc2aa833da412abd2290bd744bd35b");
+        goEasy.publish("generalUser",archivesDetail.toString(),new PublishListener(){
+            @Override
+            public void onSuccess(){
+                System.out.println("您的消息已发送，等待审核");
+                hashMap.put("status","1");
+            }
+            @Override
+            public void onFailed(GoEasyError error){
+                System.out.println("消息发送失败");
+                if(new Integer(error.getCode()) == 408){
+                    hashMap.put("status",-1);//发送数据到GoEasy失败，可能是因为网络原因，不能与GoEasy建立连接
+                }else if(new Integer(error.getCode()) == 500){
+                    hashMap.put("status",-2);//GoEasy服务器错误
+                }else if(new Integer(error.getCode()) == 900){
+                    hashMap.put("status",-3);//超过最大连接数
+                }else if(new Integer(error.getCode()) == 901){
+                    hashMap.put("status",-4);//消息数量已用完
+                }else if(new Integer(error.getCode()) == 902){
+                    hashMap.put("status",-5);//restful请求参数没有使用utf-8进行编码
+                }
+            }
+        });
         return hashMap;
     }
 }
