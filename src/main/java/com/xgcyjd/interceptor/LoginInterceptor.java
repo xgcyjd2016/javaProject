@@ -15,7 +15,7 @@ public class LoginInterceptor implements HandlerInterceptor{
             throws Exception {
         // TODO Auto-generated method stub
         String requestURI = request.getRequestURI();
-        if(requestURI.indexOf("/user/login")<=0){
+        if(requestURI.indexOf("user/login")<=0){
             //说明处在编辑的页面
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");

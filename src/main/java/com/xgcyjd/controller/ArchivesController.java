@@ -3,9 +3,9 @@ package com.xgcyjd.controller;
 import com.xgcyjd.po.Archives;
 import com.xgcyjd.po.ArchivesDetail;
 import com.xgcyjd.service.ArchivesService;
-import io.goeasy.GoEasy;
-import io.goeasy.publish.GoEasyError;
-import io.goeasy.publish.PublishListener;
+//import io.goeasy.GoEasy;
+//import io.goeasy.publish.GoEasyError;
+//import io.goeasy.publish.PublishListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,7 +72,7 @@ public class ArchivesController
     }
     @ResponseBody
     @RequestMapping(value = "/readArchives")
-    public HashMap<String,Object> readArchives( int user_id, int archives_detail_id) throws Exception{
+    public HashMap<String,Object> readArchives(int user_id, int archives_detail_id) throws Exception{
 
         Archives archives = new Archives();
 
