@@ -2,36 +2,49 @@ package com.xgcyjd.controller;
 
 import com.xgcyjd.po.Archives;
 import com.xgcyjd.po.ArchivesDetail;
+import com.xgcyjd.po.Result;
 import com.xgcyjd.service.ArchivesService;
 //import io.goeasy.GoEasy;
 //import io.goeasy.publish.GoEasyError;
 //import io.goeasy.publish.PublishListener;
 
+import com.xgcyjd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.HashMap;
 
-@Controller
+@RestController
 public class ArchivesController
 {
 
     @Autowired
     ArchivesService archivesService;
 
-    @ResponseBody
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/addArchivesDetail")
-    public void addArchives(@RequestBody  ArchivesDetail archivesDetail) throws Exception
+    public Result addArchives(@RequestBody  ArchivesDetail archivesDetail) throws Exception
     {
         archivesService.addArchives(archivesDetail);
+        return Result.getInstance(1,"添加成功");
     }
 
-    @ResponseBody
+    @RequestMapping("/getAll")
+    public Result getAll() throws Exception
+    {
+        HashMap<String,Object> hashMap = new HashMap<>();
+
+        hashMap.put("user",userService.getAll());
+
+        return Result.getInstance(1,"获取成功").setData("user",userService.getAll());
+    }
+
     @RequestMapping(value = "/findArchivesDetailByAuthor")
-    public HashMap<String , Object> findArchivesDetailByAuthor(@RequestParam(value = "author") int author ,
-                                                               @RequestParam(value = "pageNow") int pageNow) throws Exception
+    public HashMap<String, Object> findArchivesDetailByAuthor(@RequestParam(value = "author") int author ,
+                                                              @RequestParam(value = "pageNow") int pageNow) throws Exception
     {
         HashMap<String,Object> hashMap;
 
@@ -40,9 +53,8 @@ public class ArchivesController
         return hashMap;
     }
 
-    @ResponseBody
     @RequestMapping("/uanager/checkArchivesDetail")
-    public HashMap<String, Object> checkArchivesDetail(@RequestBody ArchivesDetail archivesDetail) throws Exception
+    public Result checkArchivesDetail(@RequestBody ArchivesDetail archivesDetail) throws Exception
     {
         archivesService.checkArchivesDetail(archivesDetail);
 //        if(archivesDetail.getState() == 2){
@@ -50,29 +62,23 @@ public class ArchivesController
 ////            goEasy.publish("");
 //        }
 
-        HashMap<String,Object> hashMap = new HashMap<>();
+        Result result = Result.getInstance(1,"").setData("archivesDetail",archivesDetail);
 
-        hashMap.put("archivesDetail" ,archivesDetail);
-
-        return hashMap;
+        return result;
     }
-    @ResponseBody
+
     @RequestMapping("/deleteArchivesDetail")
-    public HashMap<String,Object> deleteArchivesDetail( int id) throws Exception
+    public Result deleteArchivesDetail(int id) throws Exception
     {
         archivesService.deleteArchivesDetailById(id);
 
-        HashMap<String,Object> hashMap = new HashMap<>();
+        Result result =Result.getInstance(1,"删除成功").setData("id",id);
 
-        hashMap.put("status",0);
-
-        hashMap.put("id", id);
-
-        return hashMap;
+        return result;
     }
-    @ResponseBody
+
     @RequestMapping(value = "/readArchives")
-    public HashMap<String,Object> readArchives(int user_id, int archives_detail_id) throws Exception{
+    public Result readArchives(int user_id, int archives_detail_id) throws Exception{
 
         Archives archives = new Archives();
 
@@ -80,24 +86,23 @@ public class ArchivesController
 
         archives.setUser_id(user_id);
         archives.setArchives_detail_id(archives_detail_id);
+        archives.setState(1);
 
         archivesService.readArchives(archives);
 
-        hashMap.put("user_id",user_id);
-        hashMap.put("archives_detail_id",archives_detail_id);
+        Result result = Result.getInstance(1,"成功")
+                .setData("user_id",user_id)
+                .setData("archives_detail_id",archives_detail_id);
 
-        return hashMap;
+        return result;
     }
-    @ResponseBody
+
     @RequestMapping("/sendArchives")
-    public HashMap<String,Object> sendArchives(ArchivesDetail archivesDetail) throws Exception{
+    public Result sendArchives(ArchivesDetail archivesDetail) throws Exception{
 
         archivesService.sendArchives(archivesDetail);
 
-        HashMap<String,Object> hashMap = new HashMap<>();
-
-        hashMap.put("archivesDetail" ,archivesDetail);
-
+        Result result = Result.getInstance(1,"成功");
 //        GoEasy goEasy = new GoEasy("http://rest-hangzhou.goeasy.io","BS-e4cc2aa833da412abd2290bd744bd35b");
 //        goEasy.publish("generalUser",archivesDetail.toString(),new PublishListener(){
 //            @Override
@@ -121,6 +126,6 @@ public class ArchivesController
 //                }
 //            }
 //        });
-        return hashMap;
+        return result;
     }
 }

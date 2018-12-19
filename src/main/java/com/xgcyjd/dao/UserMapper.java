@@ -13,5 +13,6 @@ public interface UserMapper
     public void insertUser(User user) throws SQLException;
     public User findUserByStuId(Integer stu_id) throws SQLException;
     public List<User> getUserByGroup(int group) throws  Exception;
+    public List<User> getAll() throws Exception;
 
 }

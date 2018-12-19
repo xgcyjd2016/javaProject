@@ -17,13 +17,13 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/user/regist"/>
-            <mvc:exclude-mapping path="/uanager/login"/>
-            <mvc:exclude-mapping path="user/login"/>
-            <bean class="com.xgcyjd.interceptor.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/user/regist"/>-->
+            <!--<mvc:exclude-mapping path="/uanager/login"/>-->
+            <!--<mvc:exclude-mapping path="user/login"/>-->
+            <!--<bean class="com.xgcyjd.interceptor.LoginInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 </beans>

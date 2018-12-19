@@ -11,4 +11,7 @@
     <select id="getUserByGroup" parameterType="java.lang.Integer" resultType="com.xgcyjd.po.User">
         select * from user where group_id = #{group_id}
     </select>
+    <select id="getAll" resultType="com.xgcyjd.po.User">
+        select stu_id, name, group_id from user
+    </select>
 </mapper>

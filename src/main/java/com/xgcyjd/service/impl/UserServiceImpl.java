@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -39,5 +40,10 @@ public class UserServiceImpl implements UserService
     @Override
     public User login(Integer stu_id) throws Exception {
         return userMapper.findUserByStuId(stu_id);
+    }
+
+    @Override
+    public List<User> getAll() throws Exception {
+        return userMapper.getAll();
     }
 }

@@ -10,36 +10,23 @@ public class ArchivesDetail
     private String accessory;
     private int state;
     private String receiver;
+    private String publishtime;
 
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public ArchivesDetail() {
     }
 
     @Override
     public String toString() {
         return "ArchivesDetail{" +
                 "id=" + id +
-                ", author='" + author + '\'' +
+                ", author=" + author +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", accessory='" + accessory + '\'' +
                 ", state=" + state +
                 ", receiver='" + receiver + '\'' +
+                ", publishtime='" + publishtime + '\'' +
                 '}';
-    }
-
-    public ArchivesDetail()
-    {
-    }
-
-    public ArchivesDetail(int id, int state)
-    {
-        this.id = id;
-        this.state = state;
     }
 
     public int getId() {
@@ -88,5 +75,21 @@ public class ArchivesDetail
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getPublishtime() {
+        return publishtime;
+    }
+
+    public void setPublishtime(String publishtime) {
+        this.publishtime = publishtime;
     }
 }

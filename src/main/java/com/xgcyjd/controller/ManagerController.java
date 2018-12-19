@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
@@ -20,13 +22,17 @@ public class ManagerController {
 
     @RequestMapping(value = "/uanager/login")
     @ResponseBody
-    public HashMap<String,Object> login(@RequestBody Manager manager, HttpServletRequest request) throws Exception {
+    public HashMap<String,Object> login(@RequestBody Manager manager, HttpServletRequest request , HttpServletResponse response) throws Exception {
 
         HttpSession session = request.getSession();
 
        Manager record = managerService.login(manager);
 
        HashMap<String,Object> hashMap = new HashMap<>();
+        Cookie cookie = new Cookie("manager", record.getName());
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
 
         if (record == null) {
 
